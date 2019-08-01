@@ -7,7 +7,13 @@ This UPS can be used to power any 5V device with upto 3A continous current. It i
 
 This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilised for I2C and interrupt signals.
 
-Note: Do not connect two input sources together!
+Note: 
+
+* Do not connect two input sources together!
+
+* The device does not have reverse polarity protection, be sure to observe the polarity marked in the battery holder.
+
+
 
 ## Specifications
 
@@ -18,6 +24,8 @@ Note: Do not connect two input sources together!
 * Output: 5V, upto 3A
 
 * Output Ports: Screw Terminal, USB A, 40 pin GPIO header for Raspberry Pi
+
+* Battery: Samsung INR18650-29E (Other 18650 size batteries can be used)
 
 * Communication: I2C
 
