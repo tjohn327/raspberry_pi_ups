@@ -13,8 +13,6 @@ Note:
 
 * The device does not have reverse polarity protection, be sure to observe the polarity marked in the battery holder.
 
-
-
 ## Specifications
 
 * Input:  5V - 14V DC, 2A - 3A
@@ -41,11 +39,45 @@ Note:
 
 * [EasyEda Project](https://easyeda.com/tjohn327/ups-for-raspberry-pi)
 
+## Setting up Raspberry Pi for use with the ups
+
+### Enable I2C and install smbus
+
+Run the command
+
+```
+sudo raspi-config
+```
+
+Choose Interfacing Options, then I2C and then enable.
+
+Install smbus by running the following command:
+
+```
+sudo apt-get install -y python-smbus
+```
+
+For more information, checkout the [link].(https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
+
+### Install Paho MQTT Client (Optional)
+
+You can Install the MQTT client using PIP with the command:
+
+```
+ pip install paho-mqtt
+```
+
+More [info](http://www.steves-internet-guide.com/into-mqtt-python-client/)
+
 ## Using the UPS with Raspberry Pi
 
-* [Enable I2C Communication in the raspberry pi and install smbus.](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
+* Insert the battery into the UPS making sure to follow the correct polarity mentioned on the battery holder. Installing the battery in the wrong way can damage the UPS!
 
-* If you need to send the UPS status through mqtt, [install](http://www.steves-internet-guide.com/into-mqtt-python-client/) paho mqtt client.
+* Place the UPS over the Raspberry Pi and insert the header of the UPS into the GPIO header of the Raspberry Pi.
+
+* Connect the power source to the micro usb input of the UPS.
+
+* Turn on the Switch on the UPS to start powering the Raspberry Pi.
 
 * Run the script ups.py for normal ups operation.
 
