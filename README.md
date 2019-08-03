@@ -57,7 +57,7 @@ Install smbus by running the following command:
 sudo apt-get install -y python-smbus
 ```
 
-For more information, checkout the [link].(https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
+For more information, checkout the [link](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
 
 ### Install Paho MQTT Client (Optional)
 
