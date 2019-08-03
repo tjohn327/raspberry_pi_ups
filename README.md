@@ -1,5 +1,5 @@
 # UPS for Raspberry Pi
-
+![UPS Image](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/ups_3view.png)
 ## Description
 
 An uninterruptible power supply for Raspberry Pi that can provide more than an hour of backup power and can shutdown the Pi safely.
