@@ -1,5 +1,5 @@
 #!/usr/bin/python
-#Refer to http://www.ti.com/lit/ds/symlink/bq25895.pdf for register maps
+
 import smbus
 import time
 import os
@@ -10,6 +10,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 bus = smbus.SMBus(1)    # 1 = /dev/i2c-1 (port I2C1)
 ADDRESS = 0x6a      #I2C address of the ups
+#Refer to http://www.ti.com/lit/ds/symlink/bq25895.pdf for register maps
 
 ### Initialization ###############################################
 REG_WATCHDOG = 0x07
