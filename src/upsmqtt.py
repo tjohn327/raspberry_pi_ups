@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import smbus
 import time
-import os
+import os, sys
 import paho.mqtt.client as mqtt
 import json
 import logging
@@ -36,6 +36,7 @@ try:
     logging.info("UPS initialized")
 except:
     logging.error("Initialization failed, check connection to the UPS!")
+    sys.exit(1) 
 ###################################################################
 
 
