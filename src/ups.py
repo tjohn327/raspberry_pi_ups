@@ -2,7 +2,7 @@
 
 import smbus
 import time
-import os
+import os, sys
 import logging
 import RPi.GPIO as GPIO
 
@@ -31,6 +31,7 @@ try:
     logging.info("UPS initialized")
 except:
     logging.error("Initialization failed, check connection to the UPS!")
+    sys.exit(1) 
 ###################################################################
 
 
