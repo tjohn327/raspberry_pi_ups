@@ -80,6 +80,11 @@ More [info](http://www.steves-internet-guide.com/into-mqtt-python-client/)
 
 ## Using the UPS with Raspberry Pi
 
+```shell
+cd ~
+git clone https://github.com/tjohn327/raspberry_pi_ups.git
+```
+
 * Insert the battery into the UPS making sure to follow the correct polarity mentioned on the battery holder. Installing the battery in the wrong way can damage the UPS!
 
 * Place the UPS over the Raspberry Pi and insert the header of the UPS into the GPIO header of the Raspberry Pi.
@@ -108,8 +113,8 @@ Copy and paste the following, make necessary changes and save the file:
 
  [Service]
  Type=idle
- User=pi #Change the user name to your user name
- ExecStart=/usr/bin/python /home/pi/code/ups/upsmqtt.py #path to the script
+ User=pi 
+ ExecStart=/usr/bin/python /home/pi/code/raspberry_pi_ups/src/upsmqtt.py 
  Restart=always
 
  [Install]
