@@ -115,8 +115,7 @@ Copy and paste the following, make necessary changes and save the file:
  Type=idle
  User=pi 
  ExecStart=/usr/bin/python /home/pi/code/raspberry_pi_ups/src/upsmqtt.py 
- Restart=always
-
+ Restart=on-failure
  [Install]
  WantedBy=multi-user.target
 ```
