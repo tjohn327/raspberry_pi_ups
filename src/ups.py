@@ -106,7 +106,7 @@ def read_status():
         batv += batvbool[1] * 0.04
         batv += batvbool[0] * 0.02   
 
-        batpercent = translate(batv,3.5,4.184,0,1)
+        batpercent = translate(batv,3.4,4.184,0,1)
         if batpercent<0 :
             batpercent = 0
         elif batpercent >1 :
@@ -141,7 +141,7 @@ def read_status():
         
         logging.debug(data)
 
-        if(batv < 3.5):
+        if(batv < 3.4):
                 bus.write_byte_data(ADDRESS, REG_BATFET_DIS, BYTE_BATFET_DIS)
                 os.system('sudo shutdown -H  now')
 
