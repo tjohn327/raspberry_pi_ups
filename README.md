@@ -27,6 +27,8 @@ Note:
 
 * Battery: Samsung INR18650-29E (Other 18650 size batteries can be used)
 
+* Wide input voltage range and maximum power point tracking makes it suitable to be run from a solar panel with out voltage less than 14v.
+
 * Communication: I2C
 
 ## Status LEDs
