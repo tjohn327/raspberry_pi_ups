@@ -9,7 +9,7 @@ This UPS can be used to power any 5V device with upto 3A continous current. It i
 
 This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilised for I2C and interrupt signals.
 
-![UPS Working](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/UPSpi.png "UPS powering a Raspberry Pi 3B+ model")
+![UPS Working](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/UPSPi.png "UPS powering a Raspberry Pi 3B+ model")
 
 Note:  
 
@@ -135,5 +135,5 @@ sudo systemctl start ups.service
 Install Node-Red and Node-red dashboard.
 Import the flow, /src/ups_flow.json into the Node-Red environment. Deploy the flow and open the dashboard link of Node-Red.
 
-![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/Dashboards.png "UPS Monitoring Dashboard")
+![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/dashboards.png "UPS Monitoring Dashboard")
 
