@@ -9,6 +9,8 @@ This UPS can be used to power any 5V device with upto 3A continous current. It i
 
 This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilised for I2C and interrupt signals.
 
+![UPS Working](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/UPSpi.png).caption[UPS powering a Raspberry Pi 3B+ model]
+
 Note:  
 
 * Do not connect two input sources together!
@@ -17,7 +19,7 @@ Note:
 
 ## Specifications
 
-* Input:  5V - 14V DC, 2A - 3A
+* Input:  3.9V - 14V DC, 2A - 3A
 
 * Input Ports: Screw Terminal, micro USB
 
@@ -26,8 +28,6 @@ Note:
 * Output Ports: Screw Terminal, USB A, 40 pin GPIO header for Raspberry Pi
 
 * Battery: Samsung INR18650-29E (Other 18650 size batteries can be used)
-
-* Wide input voltage range and maximum power point tracking makes it suitable to be run from a solar panel with out voltage less than 14v.
 
 * Communication: I2C
 
@@ -99,7 +99,7 @@ git clone https://github.com/tjohn327/raspberry_pi_ups.git
 
 * Use the upsmqtt.py script for sending the ups status through mqtt.
 
-## Setup a service to run the ups script on start up (Optional)
+## Setup a service to run the ups script with MQTT messaging on start up
 
 ```shell
 sudo nano /lib/systemd/system/ups.service
@@ -129,3 +129,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable ups.service
 sudo systemctl start ups.service
 ```
+
+## Setup Node-Red dashboard for visualization
+
+Install Node-Red and Node-red dashboard.
+Import the flow, /src/ups_flow.json into the Node-Red environment. Deploy the flow and open the dashboard link of Node-Red.
+
+![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/Dashboards.png).caption[UPS Monitoring Dashboard]
+
