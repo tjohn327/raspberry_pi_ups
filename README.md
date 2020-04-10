@@ -137,3 +137,6 @@ Import the flow, /src/ups_flow.json into the Node-Red environment. Deploy the fl
 
 ![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/dashboards.png "UPS Monitoring Dashboard")
 
+## Kickstarter Campaign
+[https://www.kickstarter.com/projects/tjohn327/power-pi-a-smart-ups-for-the-raspberry-pi/](https://www.kickstarter.com/projects/tjohn327/power-pi-a-smart-ups-for-the-raspberry-pi/)
+
