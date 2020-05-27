@@ -143,9 +143,9 @@ class Powerpi:
         
         data = { 
             'PowerInputStatus': power_status,
-            'InputVoltage' : '%.2f'%vbus,
+            'InputVoltage' : vbus,
             'ChargeStatus' : charge_status,
-            'BatteryVoltage' : '%.3f'%vbat,
+            'BatteryVoltage' : vbat,
             "BatteryPercentage" : int(self._calc_bat_charge_percent(vbat)*100),
             'ChargeCurrent' : ibat,
             'TimeRemaining' : int(time_left)

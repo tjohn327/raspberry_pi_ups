@@ -43,9 +43,8 @@ def read_status(clear_fault=False):
                 logging.error(ex)
         
         logging.debug(status)
-        print(float(status['BatteryVoltage']))
         
-        if(float(status['BatteryVoltage']) < 3.2):
+        if(status['BatteryVoltage'] < 3.2):
                 ppi.bat_disconnect()
                 os.system('sudo shutdown now')
 
