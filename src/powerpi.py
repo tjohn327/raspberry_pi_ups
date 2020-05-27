@@ -9,11 +9,14 @@ class Powerpi:
 
     REG_WATCHDOG = 0x07
     BYTE_WATCHDOG_STOP =  0b10001101 #Stop Watchdog timer
+    REG_SYSMIN = 0x03
+    BYTE_SYSMIN = 0b00010000
     REG_ILIM = 0x00 #ILIM register
     #BYTE_ILIM =  0b01101000 #2A input current limit
     BYTE_ILIM =  0b01111111 #3.25A input current limit
     REG_ICHG = 0x04 
-    BYTE_ICHG =  0b00001000 #.5A charging current limit
+    #BYTE_ICHG =  0b00001000 #.5A charging current limit
+    BYTE_ICHG =  0b00010000 #1A charging current limit
     REG_ICHGR = 0x12
     REG_CONV_ADC = 0x02
     REG_BATFET = 0x09
@@ -27,7 +30,6 @@ class Powerpi:
     BYTE_BATFET_DIS = 0b01101000
     REG_STATUS = 0x0B #address of status register
     REG_VBAT = 0x0e
-
     REG_FAULT = 0x0c
     REG_IBAT = 0x12
     REG_VBUS = 0x11
@@ -46,6 +48,7 @@ class Powerpi:
             self.bus.write_byte_data(self.ADDRESS, self.REG_ILIM,self.BYTE_ILIM)
             self.bus.write_byte_data(self.ADDRESS, self.REG_ICHG, self.BYTE_ICHG)
             self.bus.write_byte_data(self.ADDRESS, self.REG_BATFET, self.BYTE_BATFET)
+            self.bus.write_byte_data(self.ADDRESS, self.REG_SYSMIN, self.BYTE_SYSMIN)
             logging.info("UPS initialized")
             return 0
         except Exception as ex:
@@ -105,12 +108,14 @@ class Powerpi:
             time_left = 0
         return time_left
 
-    def read_status(self):
+    def read_status(self, clear_fault=False):
         try:
+            if clear_fault:
+                self.bus.read_byte_data(self.ADDRESS, self.REG_FAULT)
             self.bus.write_byte_data(self.ADDRESS, self.REG_CONV_ADC, self.BYTE_CONV_ADC_START)
+            time.sleep(2)
             status = self.bus.read_byte_data(self.ADDRESS, self.REG_STATUS)
-            status = self._int_to_bool_list(int(status))
-            time.sleep(1.1)
+            status = self._int_to_bool_list(int(status))            
             vbat = self._vbat_convert(self.bus.read_byte_data(self.ADDRESS, self.REG_VBAT))            
             ibat = self._ibat_convert(self.bus.read_byte_data(self.ADDRESS, self.REG_ICHGR))
             vbus = self._vbus_convert(self.bus.read_byte_data(self.ADDRESS, self.REG_VBUS))

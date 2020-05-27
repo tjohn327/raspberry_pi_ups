@@ -3,24 +3,29 @@
 import time
 import os, sys
 import logging
+import socket
+import json
+import signal
 import RPi.GPIO as GPIO
 from powerpi import Powerpi
 
-logging.basicConfig(level=logging.DEBUG)
 
+logging.basicConfig(level=logging.INFO)
+
+ENABLE_UDP = True
+serverAddressPort   = ("127.0.0.1", 40001)
+UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 disconnectflag = False
-SHUTDOWNCMD = 'sudo shutdown -H '
-CANCEL_SHUTDOWNCMD = 'sudo shutdown -c'
-SLEEPDELAY = 5
 ppi = Powerpi()
 
-
-def read_status():
-        global disconnectflag
-        err, status = ppi.read_status()
+def read_status(clear_fault=False):
+        global disconnectflag, ENABLE_UDP, count
+        err, status = ppi.read_status(clear_fault)
+        
         if err:
+            time.sleep(1)
             return
-            
+
         if status["PowerInputStatus"] == "Not Connected" and disconnectflag == False :
             disconnectflag = True
             message = "echo Power Disconnected, system will shutdown in %d minutes! | wall" % (status['TimeRemaining'])
@@ -31,17 +36,23 @@ def read_status():
             message = "echo Power Restored, battery at %d percent | wall" % (status['BatteryPercentage'])
             os.system(message)
         
+        if ENABLE_UDP:
+            try:
+                UDPClientSocket.sendto(json.dumps(status), serverAddressPort)
+            except Exception as ex:
+                logging.error(ex)
+        
         logging.debug(status)
-
-        if(status['BatteryVoltage'] < 3.2):
+        print(float(status['BatteryVoltage']))
+        
+        if(float(status['BatteryVoltage']) < 3.2):
                 ppi.bat_disconnect()
-                os.system('sudo shutdown -H  now')
+                os.system('sudo shutdown now')
 
 def interrupt_handler(channel):
-    read_status()        
+    read_status(True) 
 
-if __name__=="__main__":
-    
+def main():
     if ppi.initialize():
         sys.exit(1)
 
@@ -51,4 +62,7 @@ if __name__=="__main__":
 
     while (True):
         read_status()
+
+if __name__=="__main__":
+    main()
                 
