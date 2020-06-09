@@ -15,6 +15,8 @@ Note:
 
 * The device does not have reverse polarity protection, be sure to observe the polarity marked in the battery holder while inserting the battery.
 
+* UPS script was tested on a Raspberry Pi 3B+ running Raspbian Buster.
+
 ## Specifications
 
 * Input:  4.5V - 14V DC, 2A - 5A
@@ -81,7 +83,7 @@ sudo systemctl enable nodered.service
 
 * Insert the battery into the UPS making sure to follow the correct polarity mentioned on the battery holder. Installing the battery in the wrong way can damage the UPS!
 
-* Turn the power switch of Power Pi to off position.
+* Turn the power switch of UPS to off position.
 
 * Place the UPS over the Raspberry Pi and insert the header of the UPS into the GPIO header of the Raspberry Pi.
 
