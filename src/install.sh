@@ -51,6 +51,7 @@ then
     echo "Error enabling ups service"
     exit 1
 fi
+sudo systemctl restart ups.service
 echo "ups service enabled"
 echo "Power Pi configured successfully"
 exit 0
