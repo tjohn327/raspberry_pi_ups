@@ -1,1 +1,451 @@
-[{"id":"3981e627.9c5c9a","type":"tab","label":"UPS","disabled":false,"info":""},{"id":"51f184b1.9c2a14","type":"mqtt in","z":"3981e627.9c5c9a","name":"ups","topic":"/feeds/ups","qos":"2","datatype":"json","broker":"f66ab1c7.36e038","x":200,"y":240,"wires":[["d6ba287d.dc755","10c9e905.de769f","8e6b20fa.5c5718","722ffad.d178384","8f6113d4.4b304","87d3b605.569d5"]]},{"id":"d6ba287d.dc755","type":"debug","z":"3981e627.9c5c9a","name":"","active":false,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","x":460,"y":240,"wires":[]},{"id":"29ad4330.eed314","type":"ui_gauge","z":"3981e627.9c5c9a","name":"","group":"221342a7.29f9d6","order":0,"width":0,"height":0,"gtype":"gage","title":"Battery ","label":"%","format":"{{value}}","min":0,"max":"100","colors":["#b50004","#e6e600","#00ff00"],"seg1":"","seg2":"","x":680,"y":340,"wires":[]},{"id":"10c9e905.de769f","type":"change","z":"3981e627.9c5c9a","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.BatteryPercentage","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":420,"y":320,"wires":[["29ad4330.eed314"]]},{"id":"8e6b20fa.5c5718","type":"change","z":"3981e627.9c5c9a","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.PowerInput","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":420,"y":380,"wires":[["191a4f35.94c2a9"]]},{"id":"191a4f35.94c2a9","type":"ui_text","z":"3981e627.9c5c9a","group":"221342a7.29f9d6","order":1,"width":0,"height":0,"name":"","label":"Power Input","format":"{{msg.payload}}","layout":"row-spread","x":690,"y":400,"wires":[]},{"id":"722ffad.d178384","type":"change","z":"3981e627.9c5c9a","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.ChargeStatus","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":360,"y":440,"wires":[["65e8199f.2ceca"]]},{"id":"65e8199f.2ceca","type":"ui_text","z":"3981e627.9c5c9a","group":"221342a7.29f9d6","order":1,"width":0,"height":0,"name":"","label":"Charge Status","format":"{{msg.payload}}","layout":"row-spread","x":700,"y":440,"wires":[]},{"id":"8f6113d4.4b304","type":"change","z":"3981e627.9c5c9a","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.BatteryVoltage","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":360,"y":500,"wires":[["fc6bc7f8.abc46"]]},{"id":"fc6bc7f8.abc46","type":"ui_text","z":"3981e627.9c5c9a","group":"221342a7.29f9d6","order":1,"width":0,"height":0,"name":"","label":"Battery Voltage","format":"{{msg.payload}} V","layout":"row-spread","x":700,"y":500,"wires":[]},{"id":"87d3b605.569d5","type":"change","z":"3981e627.9c5c9a","name":"","rules":[{"t":"set","p":"payload","pt":"msg","to":"payload.TimeRemaining","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":360,"y":580,"wires":[["5976421.89d7dbc","58cc5371.3bb5f4"]]},{"id":"8d53003a.be1238","type":"ui_text","z":"3981e627.9c5c9a","group":"221342a7.29f9d6","order":1,"width":0,"height":0,"name":"","label":"Time Remaining (mins)","format":"{{msg.payload}} ","layout":"row-spread","x":810,"y":600,"wires":[]},{"id":"5976421.89d7dbc","type":"ui_ui_control","z":"3981e627.9c5c9a","name":"","x":500,"y":700,"wires":[["8d53003a.be1238"]]},{"id":"58cc5371.3bb5f4","type":"function","z":"3981e627.9c5c9a","name":"","func":"if (msg.payload == -1){\n    msg.payload = \"Connected\";\n}\nreturn msg;","outputs":1,"noerr":0,"x":520,"y":560,"wires":[["8d53003a.be1238"]]},{"id":"f66ab1c7.36e038","type":"mqtt-broker","z":"","name":"PiMosquitto","broker":"172.16.11.1","port":"1883","clientid":"node-red","usetls":false,"compatmode":true,"keepalive":"60","cleansession":true,"birthTopic":"","birthQos":"0","birthPayload":"","closeTopic":"","closeQos":"0","closePayload":"","willTopic":"","willQos":"0","willPayload":""},{"id":"221342a7.29f9d6","type":"ui_group","z":"","name":"UPS","tab":"200aae8b.5d687a","disp":true,"width":"6","collapse":false},{"id":"200aae8b.5d687a","type":"ui_tab","z":"","name":"UPS","icon":"dashboard","disabled":false,"hidden":false}]
+[
+    {
+        "id": "6c370707.c02a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "abe46b43.4ed548",
+        "type": "udp in",
+        "z": "6c370707.c02a",
+        "name": "",
+        "iface": "",
+        "port": "40001",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 80,
+        "y": 140,
+        "wires": [
+            [
+                "f878bed4.981fa8"
+            ]
+        ]
+    },
+    {
+        "id": "f878bed4.981fa8",
+        "type": "json",
+        "z": "6c370707.c02a",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "7318b5d4.37a48c",
+                "e3bad180.23d308",
+                "6278c82d.c83ee",
+                "d4f135a.11f6c48",
+                "3e09aa9e.7ad096",
+                "18b148b0.483f0f",
+                "4eeb878f.737d1"
+            ]
+        ]
+    },
+    {
+        "id": "9db423cf.522798",
+        "type": "file",
+        "z": "6c370707.c02a",
+        "name": "",
+        "filename": "/home/pi/ups_test3.csv",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1130,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10ac9133.58f8d7",
+        "type": "ui_gauge",
+        "z": "6c370707.c02a",
+        "name": "Bat",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "wave",
+        "title": "Battery Level",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 750,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7318b5d4.37a48c",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "BatteryPercentage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.BatteryPercentage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 40,
+        "wires": [
+            [
+                "10ac9133.58f8d7"
+            ]
+        ]
+    },
+    {
+        "id": "e3bad180.23d308",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "TimeRemaining",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.TimeRemaining",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 80,
+        "wires": [
+            [
+                "9131125.37003f"
+            ]
+        ]
+    },
+    {
+        "id": "18b148b0.483f0f",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "InputVoltage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.InputVoltage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "9380a267.81c478"
+            ]
+        ]
+    },
+    {
+        "id": "d4f135a.11f6c48",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "ChargeCurrent",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ChargeCurrent",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 200,
+        "wires": [
+            [
+                "258e1d5b.7f676a"
+            ]
+        ]
+    },
+    {
+        "id": "6278c82d.c83ee",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "ChargeStatus",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ChargeStatus",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "727267e0.028dd"
+            ]
+        ]
+    },
+    {
+        "id": "3e09aa9e.7ad096",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "PowerInputStatus",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.PowerInputStatus",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "997fda11.624728"
+            ]
+        ]
+    },
+    {
+        "id": "34670b4f.b585a4",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "TimeRemaining",
+        "label": "Time Remaining (approx.)",
+        "format": "{{msg.payload}} Min",
+        "layout": "row-spread",
+        "x": 780,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "727267e0.028dd",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "ChargeStatus",
+        "label": "Charge Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 780,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "258e1d5b.7f676a",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "ChargeCurrent",
+        "label": "Charge Current",
+        "format": "{{msg.payload}} mAh",
+        "layout": "row-spread",
+        "x": 780,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "997fda11.624728",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "PowerInputStatus",
+        "label": "Power Input ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6175c42d.51ef4c",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "InputVoltage",
+        "label": "Input Voltage ",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "x": 770,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "4eeb878f.737d1",
+        "type": "change",
+        "z": "6c370707.c02a",
+        "name": "BatteryVoltage",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.BatteryVoltage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "44bf8f35.ac90c8"
+            ]
+        ]
+    },
+    {
+        "id": "8b2153f3.55bf78",
+        "type": "ui_text",
+        "z": "6c370707.c02a",
+        "group": "6ca7e7c1.5b5a18",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "BatteryVoltage",
+        "label": "Battery Voltage ",
+        "format": "{{msg.payload}} V",
+        "layout": "row-spread",
+        "x": 780,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "9131125.37003f",
+        "type": "function",
+        "z": "6c370707.c02a",
+        "name": "",
+        "func": "if (msg.payload === -1)\n{\n    msg.payload = \"\\u221E\";\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 590,
+        "y": 80,
+        "wires": [
+            [
+                "34670b4f.b585a4"
+            ]
+        ]
+    },
+    {
+        "id": "44bf8f35.ac90c8",
+        "type": "smooth",
+        "z": "6c370707.c02a",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "10",
+        "round": "3",
+        "mult": "single",
+        "reduce": false,
+        "x": 600,
+        "y": 120,
+        "wires": [
+            [
+                "8b2153f3.55bf78"
+            ]
+        ]
+    },
+    {
+        "id": "9380a267.81c478",
+        "type": "smooth",
+        "z": "6c370707.c02a",
+        "name": "",
+        "property": "payload",
+        "action": "mean",
+        "count": "2",
+        "round": "2",
+        "mult": "single",
+        "reduce": false,
+        "x": 600,
+        "y": 280,
+        "wires": [
+            [
+                "6175c42d.51ef4c"
+            ]
+        ]
+    },
+    {
+        "id": "6ca7e7c1.5b5a18",
+        "type": "ui_group",
+        "z": "",
+        "name": "UPS Status",
+        "tab": "313a437b.4a236c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "313a437b.4a236c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]

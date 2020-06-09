@@ -12,17 +12,23 @@ class Powerpi:
     REG_SYSMIN = 0x03
     BYTE_SYSMIN = 0b00010000
     REG_ILIM = 0x00 #ILIM register
+
+    ####Edit this section to suit your needs######
     #BYTE_ILIM =  0b01101000 #2A input current limit
     BYTE_ILIM =  0b01111111 #3.25A input current limit
-    REG_ICHG = 0x04 
     #BYTE_ICHG =  0b00001000 #.5A charging current limit
     BYTE_ICHG =  0b00010000 #1A charging current limit
+    BAT_CAPACITY = 2900 #Battery capacity in mAh
+    CURRENT_DRAW = 2000 #Current draw in mAh approxiamtely
+    VBAT_LOW = 3.2
+    ###############################################
+
+    REG_ICHG = 0x04 
     REG_ICHGR = 0x12
     REG_CONV_ADC = 0x02
     REG_BATFET = 0x09
     BYTE_BATFET = 0b01001000 #delay before battery is disconnected
-    BAT_CAPACITY = 2900 #Battery capacity in mah
-    CURRENT_DRAW = 2000 #Current draw in mah
+
     REG_CONV_ADC = 0x02
     BYTE_CONV_ADC_START = 0b10011101
     BYTE_CONV_ADC_STOP = 0b00011101
@@ -33,7 +39,6 @@ class Powerpi:
     REG_FAULT = 0x0c
     REG_IBAT = 0x12
     REG_VBUS = 0x11
-    VBAT_LOW = 3.2
     VBAT_MAX = 4.208
 
 
