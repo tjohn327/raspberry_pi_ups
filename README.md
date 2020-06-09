@@ -55,6 +55,12 @@ Note:
 
 #### Enable I2C and install smbus
 
+Update the system:
+
+```shell
+sudo apt update && sudo apt upgrade -y
+```
+
 To enable I2C:
 Open a terminal and run the command
 
@@ -154,6 +160,8 @@ Your Power Pi is now ready.
 ### 4. Setup Node-Red dashboard for visualization (optional)
 
 ![Dashboard](Assests/dashboard_R3.PNG "UPS Monitoring Dashboard")
+
+If you are new to Node-Red, please checkout their Essentials [video](https://www.youtube.com/watch?v=ksGeUD26Mw0&list=PLyNBB9VCLmo1hyO-4fIZ08gqFcXBkHy-6) series.
 
 Open the Node-Red link in a browser. The link is usually:
 

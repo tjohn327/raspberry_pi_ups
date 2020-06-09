@@ -12,7 +12,7 @@ from powerpi import Powerpi
 
 logging.basicConfig(level=logging.INFO)
 
-USE_1WIRE = False
+GPIO4_AVAILABLE = True
 ENABLE_UDP = True
 UDP_PORT = 40001
 serverAddressPort   = ("127.0.0.1", UDP_PORT)
@@ -57,7 +57,7 @@ def main():
     if ppi.initialize():
         sys.exit(1)
 
-    if not USE_1WIRE:
+    if GPIO4_AVAILABLE:
         try:
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
