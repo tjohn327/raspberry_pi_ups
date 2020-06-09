@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -131,3 +132,6 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+=======
+/.vs
+>>>>>>> 9b649e3487e2e2e398a0459c583209f845195f20

@@ -1,6 +1,6 @@
 # UPS for Raspberry Pi
 
-![UPS Image](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/ups_3view.png)
+![UPS Image](Assests/ups_R3_1.png "UPS powering a Raspberry Pi 3B+ model")
 
 ## Description
 
@@ -9,17 +9,17 @@ This UPS can be used to power any 5V device with up to 3A continuous current. It
 
 This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilized for I2C and interrupt signals.
 
-![UPS Working](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/UPSPi.png "UPS powering a Raspberry Pi 3B+ model")
-
 Note:  
 
 * Do not connect two input sources together!
 
-* The device does not have reverse polarity protection, be sure to observe the polarity marked in the battery holder.
+* The device does not have reverse polarity protection, be sure to observe the polarity marked in the battery holder while inserting the battery.
+
+* UPS script was tested on a Raspberry Pi 3B+ running Raspbian Buster.
 
 ## Specifications
 
-* Input:  3.9V - 14V DC, 2A - 3A
+* Input:  4.5V - 14V DC, 2A - 5A
 
 * Input Ports: Screw Terminal, micro USB
 
@@ -27,7 +27,7 @@ Note:
 
 * Output Ports: Screw Terminal, USB A, 40 pin GPIO header for Raspberry Pi
 
-* Battery: Samsung INR18650-29E (Other 18650 size batteries can be used)
+* Battery: Samsung INR18650-29E Recommended (Other 18650 size batteries can be used)
 
 * Communication: I2C
 
@@ -151,7 +151,7 @@ Your Power Pi is now ready.
 
 ### 4. Setup Node-Red dashboard for visualization (optional)
 
-![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/dashboards.png "UPS Monitoring Dashboard")
+![Dashboard](Assests/dashboard_R3.PNG "UPS Monitoring Dashboard")
 
 Open the Node-Red link in a browser. The link is usually:
 
