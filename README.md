@@ -1,6 +1,6 @@
 # UPS for Raspberry Pi
 
-![UPS Image](https://github.com/tjohn327/raspberry_pi_ups/raw/master/Assests/ups_3view.png "UPS powering a Raspberry Pi 3B+ model")
+![UPS Image](Assests/ups_R3_1.png "UPS powering a Raspberry Pi 3B+ model")
 
 ## Description
 
@@ -147,7 +147,7 @@ sudo systemctl start ups.service
 
 Open the Node-Red link in a browser. The link is usually:
 
-http://<IP of Raspberry Pi>:1880/
+http://[IP of Raspberry Pi]:1880/
 
 Import the flow, src/ups_flow.json into the Node-Red environment.
 
@@ -155,9 +155,9 @@ Edit one of the UI nodes (e.g BAT) by double clicking on it. In its setup menu c
 
 Deploy the flow and open the dashboard link of Node-Red to see the status of the UPS.
 
-http://<IP of Raspberry Pi>:1880/ui
+http://[IP of Raspberry Pi]:1880/ui
 
-![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/dashboards.png "UPS Monitoring Dashboard")
+![Dashboard](Assests/dashboard_R3.PNG "UPS Monitoring Dashboard")
 
 If everything went well till now, shutdown the Pi.
 
