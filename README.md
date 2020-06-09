@@ -5,9 +5,9 @@
 ## Description
 
 An uninterruptible power supply for Raspberry Pi that can provide more than an hour of backup power and can shutdown the Pi safely.
-This UPS can be used to power any 5V device with upto 3A continous current. It is based on Texas Instruments [BQ25895](http://www.ti.com/product/BQ25895) power management IC and [TPS61236P](http://www.ti.com/product/TPS61236P) boost converter IC.
+This UPS can be used to power any 5V device with up to 3A continuous current. It is based on Texas Instruments [BQ25895](http://www.ti.com/product/BQ25895) power management IC and [TPS61236P](http://www.ti.com/product/TPS61236P) boost converter IC.
 
-This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilised for I2C and interrupt signals.
+This UPS can power a Raspberry Pi through the GPIO header by using it as a hat. When used as a hat, the GPIO pins 2, 3 and 4 will be utilized for I2C and interrupt signals.
 
 ![UPS Working](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/UPSPi.png "UPS powering a Raspberry Pi 3B+ model")
 
@@ -23,7 +23,7 @@ Note:
 
 * Input Ports: Screw Terminal, micro USB
 
-* Output: 5V, upto 3A
+* Output: 5V, up to 3A
 
 * Output Ports: Screw Terminal, USB A, 40 pin GPIO header for Raspberry Pi
 
@@ -39,104 +39,130 @@ Note:
 
 * OUT: Output on or off
 
-## Circuit Design
+## Using Power Pi with a Raspberry Pi
 
-* [EasyEda Project](https://easyeda.com/tjohn327/ups-for-raspberry-pi)
+### 1. Connect Power Pi to Raspberry pi
 
-## Setting up Raspberry Pi for use with the ups
+* Make sure the switch of Power Pi is turned off and power input is plugged into the Raspberry Pi.
 
-### Enable I2C and install smbus
+* Insert the battery into the battery holder following the correct polarity.
 
-Run the command
+* Connect Power Pi to Raspberry Pi by inserting it into the GPIO pins.
 
-```
+* Connect power to the Raspberry Pi's USB input to turn it on. (After the setup this power will be connected to Power Pi)
+
+### 2. Set up Raspberry Pi for use with Power Pi
+
+#### Enable I2C and install smbus
+
+To enable I2C:
+Open a terminal and run the command
+
+```shell
 sudo raspi-config
 ```
 
-Choose Interfacing Options, then I2C and then enable.
+Choose Interfacing Options, then I2C and then select enable to enable I2C in the Raspberry Pi.
 
 Install smbus by running the following command:
 
-```
+```shell
 sudo apt-get install -y python-smbus
 ```
 
 For more information, checkout the [link](https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c)
 
-### Install Mosquitto broker (Optional)
+#### Install Node-Red and its extensions (Optional)
 
-```
-sudo apt-get install -y mosquitto mosquitto-clients
-sudo systemctl enable mosquitto.service
-```
+Follow the [link](https://nodered.org/docs/getting-started/raspberrypi) and install Node-Red on the Raspberry Pi.
 
-### Install Paho MQTT Client (Optional)
+It may take a while to install. After the installation is done, install the following extensions for Node-Red.
 
-You can Install the MQTT client using PIP with the command:
-
-```
- pip install paho-mqtt
+```shell
+npm install node-red-dashboard
 ```
 
-More [info](http://www.steves-internet-guide.com/into-mqtt-python-client/)
+Enable Node-Red to run on startup:
 
-## Using the UPS with Raspberry Pi
+```shell
+sudo systemctl enable nodered.service
+sudo systemctl start nodered.service
+```
+
+### 3. Install the ups service
+
+Clone the Power Pi repository:
 
 ```shell
 cd ~
 git clone https://github.com/tjohn327/raspberry_pi_ups.git
+cd raspberry_pi_ups/src/
+git checkout R3_1
 ```
 
-* Insert the battery into the UPS making sure to follow the correct polarity mentioned on the battery holder. Installing the battery in the wrong way can damage the UPS!
+Edit the file powerpi.py between lines 16 and 24 if you are not using Samsung INR18650-29E battery. It is recommended to keep the VBAT_LOW at 3.2V for Li-Ion batteries.
 
-* Place the UPS over the Raspberry Pi and insert the header of the UPS into the GPIO header of the Raspberry Pi.
-
-* Connect the power source to the micro usb input of the UPS.
-
-* Turn on the Switch on the UPS to start powering the Raspberry Pi.
-
-* Run the script ups.py for normal ups operation.
-
-* Use the upsmqtt.py script for sending the ups status through mqtt.
-
-## Setup a service to run the ups script with MQTT messaging on start up
+Run the install.sh script to install a service for the ups.
 
 ```shell
-sudo nano /lib/systemd/system/ups.service
+chmod +x install.sh
+./install.sh
 ```
 
-Copy and paste the following, make necessary changes and save the file:
-
-```
-[Unit]
- Description=UPS Service
- After=multi-user.target mosquitto.service
- Wants=mosquitto.service
-
- [Service]
- Type=idle
- User=pi 
- ExecStart=/usr/bin/python /home/pi/code/raspberry_pi_ups/src/upsmqtt.py 
- Restart=on-failure
- [Install]
- WantedBy=multi-user.target
-```
-
-Enable and start the service
+This creates a service named ups.service that will run on startup.
+If there were no error you will see this as the output:
 
 ```shell
-sudo systemctl daemon-reload
-sudo systemctl enable ups.service
-sudo systemctl start ups.service
+Checking Python
+Python found
+Initializing Power Pi
+INFO:root:UPS initialized
+Creating ups service
+Enabling ups service to run on startup
+ups service enabled
+Power Pi configured successfully
 ```
 
-## Setup Node-Red dashboard for visualization
+Now turn off the Raspberry Pi and remove the power cable form it. Connect the power cable to Power Pi and turn the switch to ON position. This will power up the Raspberry Pi through Power Pi.
 
-Install Node-Red and Node-red dashboard.
-Import the flow, /src/ups_flow.json into the Node-Red environment. Deploy the flow and open the dashboard link of Node-Red.
+When the Pi is powered back up, check the status of the ups service by running:
+
+```shell
+sudo systemctl status ups.service
+```
+
+If everything is running correctly, you will see a status similar to this:
+
+```shell
+● ups.service - UPS Service
+   Loaded: loaded (/lib/systemd/system/ups.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2020-06-09 06:44:15 UTC; 34s ago
+ Main PID: 542 (python)
+    Tasks: 2 (limit: 2200)
+   Memory: 6.9M
+   CGroup: /system.slice/ups.service
+           └─542 /usr/bin/python /home/pi/code/raspberry_pi_ups/src/ups.py
+
+Jun 09 06:44:15 raspberrypi systemd[1]: Started UPS Service.
+Jun 09 06:44:17 raspberrypi python[542]: INFO:root:UPS initialized
+```
+
+Your Power Pi is now ready.
+
+### 4. Setup Node-Red dashboard for visualization (optional)
 
 ![Dashboard](https://github.com/tjohn327/raspberry_pi_ups/blob/master/Assests/dashboards.png "UPS Monitoring Dashboard")
 
-## Kickstarter Campaign
-[https://www.kickstarter.com/projects/tjohn327/power-pi-a-smart-ups-for-the-raspberry-pi/](https://www.kickstarter.com/projects/tjohn327/power-pi-a-smart-ups-for-the-raspberry-pi/)
+Open the Node-Red link in a browser. The link is usually:
 
+http://[IP of Raspberry Pi]:1880/
+
+Import the flow, src/ups_flow.json into the Node-Red environment.
+
+Edit one of the UI nodes (e.g BAT) by double clicking on it. In its setup menu click on the edit button next to "Group' and select 'Home' in the Tab drop down. Click Update and then Done.
+
+Deploy the flow and open the dashboard link of Node-Red to see the status of the UPS.
+
+http://[IP of Raspberry Pi]:1880/ui
+
+More [info](https://nodered.org/docs/user-guide/editor/workspace/import-export) about importing flows and setting up [dashboards](https://flows.nodered.org/node/node-red-dashboard).

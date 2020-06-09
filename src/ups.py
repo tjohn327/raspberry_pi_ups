@@ -13,13 +13,14 @@ from powerpi import Powerpi
 logging.basicConfig(level=logging.INFO)
 
 ENABLE_UDP = True
-serverAddressPort   = ("127.0.0.1", 40001)
+UDP_PORT = 40001
+serverAddressPort   = ("127.0.0.1", UDP_PORT)
 UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 disconnectflag = False
 ppi = Powerpi()
 
 def read_status(clear_fault=False):
-        global disconnectflag, ENABLE_UDP, count
+        global disconnectflag, ENABLE_UDP
         err, status = ppi.read_status(clear_fault)
         
         if err:
