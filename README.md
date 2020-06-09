@@ -149,7 +149,11 @@ Open the Node-Red link in a browser. The link is usually:
 
 http://<IP of Raspberry Pi>:1880/
 
-Import the flow, src/ups_flow.json into the Node-Red environment. Deploy the flow and open the dashboard link of Node-Red to see the status of the UPS.
+Import the flow, src/ups_flow.json into the Node-Red environment.
+
+Edit one of the UI nodes (e.g BAT) by double clicking on it. In its setup menu click on the edit button next to "Group' and select 'Home' in the Tab drop down. Click Update and then Done.
+
+Deploy the flow and open the dashboard link of Node-Red to see the status of the UPS.
 
 http://<IP of Raspberry Pi>:1880/ui
 
