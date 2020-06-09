@@ -12,6 +12,7 @@ from powerpi import Powerpi
 
 logging.basicConfig(level=logging.INFO)
 
+USE_1WIRE = False
 ENABLE_UDP = True
 UDP_PORT = 40001
 serverAddressPort   = ("127.0.0.1", UDP_PORT)
@@ -56,10 +57,15 @@ def main():
     if ppi.initialize():
         sys.exit(1)
 
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.add_event_detect(4, GPIO.FALLING, callback=interrupt_handler, bouncetime=200)
-
+    if not USE_1WIRE:
+        try:
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            GPIO.add_event_detect(4, GPIO.FALLING, callback=interrupt_handler, bouncetime=200)
+        except Exception as ex:
+            logging.error("Error attaching interrupt to GPIO4")
+            logging.error(ex)
+        
     while (True):
         read_status()
 

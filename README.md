@@ -43,13 +43,13 @@ Note:
 
 ### 1. Connect Power Pi to Raspberry pi
 
-* Make sure the switch of Power Pi is turned off and power input is plugged into the Raspberry Pi.
+* Make sure the switch of the Power Pi is turned off and no power input is connected to the Power Pi.
 
-* Insert the battery into the battery holder following the correct polarity.
+* Insert the battery into the battery holder of the Power Pi following the correct polarity.
 
 * Connect Power Pi to Raspberry Pi by inserting it into the GPIO pins.
 
-* Connect power to the Raspberry Pi's USB input to turn it on. (After the setup this power will be connected to Power Pi)
+* Connect a USB power cable into the Raspberry Pi's USB input as usual to turn the Pi on. (This is to set up Power Pi. After the setup, power cable should be connected to Power Pi's input.)
 
 ### 2. Set up Raspberry Pi for use with Power Pi
 
@@ -101,6 +101,8 @@ git checkout R3_1
 ```
 
 Edit the file powerpi.py between lines 16 and 24 if you are not using Samsung INR18650-29E battery. It is recommended to keep the VBAT_LOW at 3.2V for Li-Ion batteries.
+
+*Power PI uses GPIO4 for interrupts from the Power Management IC. 1-Wire interface uses the same pin. If you are not using 1-Wire interface, disable it before proceeding. Power Pi can still function fully without the interrupt. So if you want to use 1-Wire interface it is advised to remove the resistor R12 from Power Pi, otherwise it will cause interference with 1-Wire interface.*
 
 Run the install.sh script to install a service for the ups.
 
