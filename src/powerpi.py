@@ -19,11 +19,7 @@ class Powerpi:
     #BYTE_ICHG =  0b00001000 #.5A charging current limit
     BYTE_ICHG =  0b00010000 #1A charging current limit
     BAT_CAPACITY = 2900 #Battery capacity in mAh
-<<<<<<< HEAD
     CURRENT_DRAW = 2000 #Current draw in mAh approximately
-=======
-    CURRENT_DRAW = 2000 #Current draw in mAh approxiamtely
->>>>>>> 9b649e3487e2e2e398a0459c583209f845195f20
     VBAT_LOW = 3.2
     ###############################################
 
