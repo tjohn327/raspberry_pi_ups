@@ -63,8 +63,7 @@ def main():
             GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
             GPIO.add_event_detect(4, GPIO.FALLING, callback=interrupt_handler, bouncetime=200)
         except Exception as ex:
-            logging.error("Error attaching interrupt to GPIO4")
-            logging.error(ex)
+            logging.error("Error attaching interrupt to GPIO4, UPS will work without interrupt.")
         
     while (True):
         read_status()
