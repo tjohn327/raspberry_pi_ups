@@ -270,7 +270,7 @@ bool TestAndPrintParams(void)
             return false;
         }
     }
-    if (!(vout > 4.58 && vout < 5.25))
+    if (!(vout > 4.75 && vout < 5.25))
     {
         Serial.println("VOUT Error");
         return false;
