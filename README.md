@@ -27,7 +27,7 @@ Note:
 
 * Output Ports: Screw Terminal, USB A, 40 pin GPIO header for Raspberry Pi
 
-* Battery: Samsung INR18650-29E Recommended (Other 18650 size batteries can be used)
+* Battery: Not included (Samsung INR18650-29E recommended, other 18650 size li-Ion batteries can be used)
 
 * Communication: I2C
 
