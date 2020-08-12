@@ -125,8 +125,7 @@ class Powerpi:
             vbus = self._vbus_convert(self.bus.read_byte_data(self.ADDRESS, self.REG_VBUS))
             self.bus.write_byte_data(self.ADDRESS, self.REG_CONV_ADC, self.BYTE_CONV_ADC_STOP)
         except Exception as ex:
-            logging.error("An exception occurred while reading values from the UPS: " + str(ex))
-            time.sleep(2)
+            logging.error("An exception occured while reading values from the UPS: " + str(ex))
             return 1, None
         
         if status[2]:
@@ -166,11 +165,3 @@ class Powerpi:
             except:
                 time.sleep(1)
         return 1
-
-
-        
-
-
-
-
-        
