@@ -87,7 +87,6 @@ Clone the Power Pi repository:
 cd ~
 git clone https://github.com/tjohn327/raspberry_pi_ups.git
 cd raspberry_pi_ups/src/
-git checkout R3_1
 ```
 
 Edit the file powerpi.py between lines 16 and 24 if you are not using Samsung INR18650-29E battery. It is recommended to keep the VBAT_LOW at 3.2V for Li-Ion batteries.
