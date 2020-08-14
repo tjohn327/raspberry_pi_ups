@@ -6,13 +6,17 @@ import logging
 import socket
 import json
 import signal
-import RPi.GPIO as GPIO
 from powerpi import Powerpi
 
-
 logging.basicConfig(level=logging.INFO)
-
 GPIO4_AVAILABLE = True
+
+try:
+    import RPi.GPIO as GPIO   
+except :
+    GPIO4_AVAILABLE = False
+    logging.error("Error importing GPIO library, UPS will work without interrupt")
+
 ENABLE_UDP = True
 UDP_PORT = 40001
 serverAddressPort   = ("127.0.0.1", UDP_PORT)
