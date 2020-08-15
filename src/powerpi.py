@@ -12,6 +12,7 @@ class Powerpi:
     REG_SYSMIN = 0x03
     BYTE_SYSMIN = 0b00010000
     REG_ILIM = 0x00 #ILIM register
+    REG_VREG = 0x06 #Charge voltage register
 
     ####Edit this section to suit your needs######
     #BYTE_ILIM =  0b01101000 #2A input current limit
@@ -21,6 +22,17 @@ class Powerpi:
     BAT_CAPACITY = 2900 #Battery capacity in mAh
     CURRENT_DRAW = 2000 #Current draw in mAh approximately
     VBAT_LOW = 3.2
+    VBAT_MAX = 4.208
+    #Charge Voltage
+    #BYTE_VREG = 0b00000010 #3.84v
+    #BYTE_VREG = 0b00010010 #3.9V
+    #BYTE_VREG = 0b00101010 #4V
+    #BYTE_VREG = 0b01000110 #4.112V
+    BYTE_VREG = 0b01011110 #4.208V
+    #BYTE_VREG = 0b01110110 #4.304V
+    #BYTE_VREG = 0b10001110 #4.4V
+    #BYTE_VREG = 0b10101010 #4.512V
+    #BYTE_VREG = 0b11000010 #4.608V
     ###############################################
 
     REG_ICHG = 0x04 
@@ -39,8 +51,7 @@ class Powerpi:
     REG_FAULT = 0x0c
     REG_IBAT = 0x12
     REG_VBUS = 0x11
-    VBAT_MAX = 4.208
-
+    
 
     def __init__(self):
         pass        
@@ -53,6 +64,7 @@ class Powerpi:
             self.bus.write_byte_data(self.ADDRESS, self.REG_ICHG, self.BYTE_ICHG)
             self.bus.write_byte_data(self.ADDRESS, self.REG_BATFET, self.BYTE_BATFET)
             self.bus.write_byte_data(self.ADDRESS, self.REG_SYSMIN, self.BYTE_SYSMIN)
+            self.bus.write_byte_data(self.ADDRESS, self.REG_VREG, self.BYTE_VREG)
             logging.info("UPS initialized")
             return 0
         except Exception as ex:
@@ -166,5 +178,3 @@ class Powerpi:
             except:
                 time.sleep(1)
         return 1
-
-
