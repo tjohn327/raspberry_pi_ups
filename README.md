@@ -114,6 +114,14 @@ ups service enabled
 Power Pi configured successfully
 ```
 
+Don't panic - since the Power is not connected to Power Pi this message will appear.
+
+```shell
+Broadcast message from user@raspberry (somewhere) (Sat Aug 15 18:40:10 2020):
+
+Power Disconnected, system will shutdown in 72 minutes!
+```
+
 Now turn off the Raspberry Pi and remove the power cable form it. Connect the power cable to Power Pi and turn the switch to ON position. This will power up the Raspberry Pi through Power Pi.
 
 ![PowerPi](Assests/final.jpg "Power Pi powering the Raspberry Pi")
