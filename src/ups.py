@@ -34,12 +34,12 @@ def read_status(clear_fault=False):
 
         if status["PowerInputStatus"] == "Not Connected" and disconnectflag == False :
             disconnectflag = True
-            message = "echo Power Disconnected, system will shutdown in %d minutes! | wall" % (status['TimeRemaining'])
+            message = "echo Power Disconnected, system will shutdown in %d minutes! | wall -n " % (status['TimeRemaining'])
             os.system(message)
         
         if status["PowerInputStatus"] == "Connected" and disconnectflag == True :
             disconnectflag = False
-            message = "echo Power Restored, battery at %d percent | wall" % (status['BatteryPercentage'])
+            message = "echo Power Restored, battery at %d percent | wall -n " % (status['BatteryPercentage'])
             os.system(message)
         
         if ENABLE_UDP:
