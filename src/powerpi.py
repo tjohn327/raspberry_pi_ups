@@ -3,27 +3,26 @@ import logging
 import time
 
 class Powerpi:
-    PORT = 1
-    ADDRESS = 0x6a      #I2C address of the ups
+    
     #Refer to http://www.ti.com/lit/ds/symlink/bq25895.pdf for register maps
 
-    REG_WATCHDOG = 0x07
-    BYTE_WATCHDOG_STOP =  0b10001101 #Stop Watchdog timer
-    REG_SYSMIN = 0x03
-    BYTE_SYSMIN = 0b00010000
-    REG_ILIM = 0x00 #ILIM register
-    REG_VREG = 0x06 #Charge voltage register
 
-    ####Edit this section to suit your needs######
+    ####Edit this section to suit your battery and input specs##############################
+
+    """
+    BYTE_ILIM is used to set the input current limit, i.e the maximum current the
+    UPS will draw from the power input. It does not affect the output current from
+    the UPS. If more current is required at the output than the input is cpabale of,
+    the UPS will augment that current from the battery.
+    """
     #BYTE_ILIM =  0b01101000 #2A input current limit
     BYTE_ILIM =  0b01111111 #3.25A input current limit
     #BYTE_ICHG =  0b00001000 #.5A charging current limit
     BYTE_ICHG =  0b00010000 #1A charging current limit
-    BAT_CAPACITY = 2900 #Battery capacity in mAh
-    CURRENT_DRAW = 2000 #Current draw in mAh approximately
-    VBAT_LOW = 3.2
-    VBAT_MAX = 4.208
-    #Charge Voltage
+    
+    VBAT_LOW = 3.2 # Determines the battery voltage at which the UPS will shutoff. 
+    
+    #Charge Voltage, uncomment the line suitable for your battery type.
     #BYTE_VREG = 0b00000010 #3.84v
     #BYTE_VREG = 0b00010010 #3.9V
     #BYTE_VREG = 0b00101010 #4V
@@ -33,7 +32,34 @@ class Powerpi:
     #BYTE_VREG = 0b10001110 #4.4V
     #BYTE_VREG = 0b10101010 #4.512V
     #BYTE_VREG = 0b11000010 #4.608V
-    ###############################################
+
+    """    
+    BAT_CAPACITY, CURRENT_DRAW and VBAT_MAX are used to estimated the state of charge 
+    of the battery since there is not current sensor on this UPS. These values along
+    with the battery voltage is used to derive the state of charge of the battery.
+    
+    To make the charge percent of the battery shown more accurate, take a note of
+    the battery voltage when charging is complete (red LED turns off after plugging in) 
+    and edit the VBAT_MAX to that value.
+    
+    NB:Changing these values does not affect or change the behavior of the UPS.
+    """
+    BAT_CAPACITY = 2900 #Battery capacity in mAh
+    CURRENT_DRAW = 2000 #Current draw in mAh approximately
+    VBAT_MAX = 4.208 #This should be the battery when charged to a 100%
+
+    ##################################################################################
+
+
+    PORT = 1
+    ADDRESS = 0x6a      #I2C address of the ups
+
+    REG_WATCHDOG = 0x07
+    BYTE_WATCHDOG_STOP =  0b10001101 #Stop Watchdog timer
+    REG_SYSMIN = 0x03
+    BYTE_SYSMIN = 0b00010000
+    REG_ILIM = 0x00 #ILIM register
+    REG_VREG = 0x06 #Charge voltage register
 
     REG_ICHG = 0x04 
     REG_ICHGR = 0x12
